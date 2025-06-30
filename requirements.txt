@@ -4,6 +4,3 @@ matplotlib
 openpyxl
 xlsxwriter
 impedance
-zipfile
-os
-io
