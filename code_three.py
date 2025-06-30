@@ -5,7 +5,7 @@ import os
 
 def run(df, template_text=None):
     if template_text is None:
-        with open("reference", "r", encoding="latin-1") as f:
+        with open("reference.mps", "r", encoding="latin-1") as f:
             template_text = f.read()
     """
     Converts Excel data (OB sheet) into .mps files based on a text template.
@@ -45,7 +45,7 @@ def run(df, template_text=None):
                 if not replaced:
                     new_lines.append(line)
 
-            filename = str(df.iloc[0, col]).replace(" ", "_") + ".mps"
+            filename = str(df.iloc[0, col]).replace(" ", "_")
             file_content = "\n".join(new_lines)
             zipf.writestr(filename, file_content)
 
