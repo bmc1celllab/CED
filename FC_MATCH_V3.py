@@ -106,6 +106,7 @@ def run_fc_match():
                     })
 
             result_df = pd.DataFrame(results)
+            st.snow()
             st.success("Matching completed!")
             st.subheader("Matching Results")
             st.dataframe(result_df)
