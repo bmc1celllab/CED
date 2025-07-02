@@ -53,6 +53,7 @@ def run_object_creation():
                     zip_data, zip_name = run_old_bio_object(df)
 
                 st.success("✅ Files generated!")
+                st.balloons()
                 st.download_button(
                     label="📥 Download Generated Files",
                     data=zip_data,
