@@ -108,8 +108,8 @@ def run_BEIS():
                 "1st Charge (mAh/g)": first_charge,
                 "1st CE (%)": first_ce,
                 "Hardware": battery_tester,
-                "Rct (Ω)": rct,
-                "Zre @ 0.1 Hz (Ω)": z_re
+                "Zre @ 0.1 Hz (Ω)": z_re,
+                "Rct (Ω)": rct
             })
 
             st.header("📊 Summary Table")
