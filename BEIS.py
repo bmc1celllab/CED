@@ -7,9 +7,33 @@ def run_BEIS():
     from io import BytesIO
     from impedance.models.circuits import CustomCircuit
     from impedance.visualization import plot_nyquist
+    from matplotlib.ticker import MultipleLocator
 
     st.title("Biologic BTExport EIS Analyzer")
     st.text ("This will fit your Biologic JSON/CSV data files. Use the EIS Fit Parameters to properly adjust the fit.")
+
+    def set_equal_aspect(ax):
+        xlim = ax.get_xlim()
+        ylim = ax.get_ylim()
+
+        # Force x_min = 0
+        x_min = 0
+        x_max = xlim[1]
+
+        # Compute range
+        x_range = x_max - x_min
+        y_range = ylim[1] - ylim[0]
+        max_range = max(x_range, y_range)
+
+        # Recalculate xmax based on max_range
+        x_max = x_min + max_range
+        y_center = (ylim[1] + ylim[0]) / 2
+        y_min = y_center - max_range / 2
+        y_max = y_center + max_range / 2
+
+        ax.set_xlim([x_min, x_max])
+        ax.set_ylim([y_min, y_max])
+        ax.set_aspect('equal')
 
     # Upload JSON and CSV files
     json_files = st.file_uploader("Upload JSON files", type="json", accept_multiple_files=True)
@@ -63,33 +87,88 @@ def run_BEIS():
                 rct = []
                 z_re = []
                 z_fit = {}
+                all_full_raw_nyquist = []
 
                 st.header("📈 EIS Nyquist Plots")
 
                 for i in range(len(csv_files)):
+                    # Store raw full Nyquist data
                     st.subheader(f"Sample {i+1}: {cell_name[i]}")
                     df = df_cycle_data[i]
 
-                    # EIS Fitting
-                    eis_data = df[(df["Step number"] == 4) &
-                                (df["Frequency / Hz"] > f_final) &
-                                (df["Frequency / Hz"] < f_ini)]
+                    # Full EIS data (raw) for plotting
+                    full_eis_data = df[df["Step number"] == 4]
+                    # Store raw full Nyquist data
+                    all_full_raw_nyquist.append({
+                        "label": f"Sample {i+1}: {cell_name[i]}",
+                        "Re": full_eis_data["Re(Z) / Ω"].values,
+                        "Im": full_eis_data["-Im(Z) / Ω"].values
+                    })
 
-                    z = eis_data["Re(Z) / Ω"].values + 1j * -1 * eis_data["-Im(Z) / Ω"].values
-                    circuit = CustomCircuit("R0-p(R1,CPE1)", initial_guess=[0.01, .01, 100, 1])
-                    circuit.fit(eis_data["Frequency / Hz"].values, z)
-                    z_fit[i] = circuit.predict(eis_data["Frequency / Hz"].values)
 
-                    rct.append(circuit.parameters_[1])
-                    idx_01hz = (df["Frequency / Hz"] - 0.1).abs().idxmin()
-                    z_re.append(df.at[idx_01hz, "Re(Z) / Ω"])
+                    # EIS data for fitting (filtered by frequency range)
+                    eis_data = full_eis_data[(full_eis_data["Frequency / Hz"] > f_final) &
+                                            (full_eis_data["Frequency / Hz"] < f_ini)]
 
-                    fig, ax = plt.subplots()
-                    plot_nyquist(z, fmt='o', ax=ax)
-                    plot_nyquist(z_fit[i], fmt='-', ax=ax)
-                    ax.set_title("Nyquist Plot")
-                    ax.legend(["Data", "Fit"])
-                    st.pyplot(fig)
+                    if eis_data.empty or full_eis_data.empty:
+                        st.warning(f"Insufficient EIS data for Sample {i+1}.")
+                        continue
+
+                    try:
+                        # For fitting
+                        re_z = eis_data["Re(Z) / Ω"].values
+                        im_z = eis_data["-Im(Z) / Ω"].values
+                        freq = eis_data["Frequency / Hz"].values
+                        z = re_z + 1j * -1 * im_z
+
+                        # For full plot
+                        full_re_z = full_eis_data["Re(Z) / Ω"].values
+                        full_im_z = full_eis_data["-Im(Z) / Ω"].values
+
+                        # Fit circuit
+                        circuit = CustomCircuit("R0-p(R1,CPE1)", initial_guess=[0.01, 0.01, 100, 1])
+                        circuit.fit(freq, z)
+                        z_fit[i] = circuit.predict(freq)
+
+                        rct.append(circuit.parameters_[1])
+                        idx_01hz = (df["Frequency / Hz"] - 0.1).abs().idxmin()
+                        z_re.append(df.at[idx_01hz, "Re(Z) / Ω"])
+
+                        # Plot 1: Fit
+                        fig1, ax1 = plt.subplots()
+                        plot_nyquist(z, fmt='o', ax=ax1)
+                        plot_nyquist(z_fit[i], fmt='-', ax=ax1)
+                        ax1.set_title("Nyquist Plot (Fit)")
+                        ax1.legend(["Data", "Fit"])
+                        st.pyplot(fig1)
+
+                        # Plot 2: Full Raw Nyquist
+                        fig2, ax2 = plt.subplots()
+                        ax2.plot(full_re_z, full_im_z, '-o', markersize=4)
+                        set_equal_aspect(ax2)
+                        ax2.xaxis.set_major_locator(MultipleLocator(1))
+                        ax2.yaxis.set_major_locator(MultipleLocator(1))
+                        ax2.set_xlabel("Re(Z) / Ω")
+                        ax2.set_ylabel("-Im(Z) / Ω")
+                        ax2.set_title("Full Raw Nyquist Plot (Step 4 Data)")
+                        ax2.grid(True)
+                        st.pyplot(fig2)
+
+                    except KeyError as e:
+                        st.error(f"Missing column in data: {e}")
+                    except Exception as e:
+                        st.error(f"Error processing Sample {i+1}: {e}")
+
+                fig_all, ax_all = plt.subplots()
+                for entry in all_full_raw_nyquist:
+                    ax_all.plot(entry["Re"], entry["Im"], '-o', markersize=4, label=entry["label"])
+                set_equal_aspect(ax_all)
+                ax_all.set_xlabel("Re(Z) / Ω")
+                ax_all.set_ylabel("-Im(Z) / Ω")
+                ax_all.set_title("Raw Nyquist Plots")
+                ax_all.grid(True)
+                ax_all.legend()
+                st.pyplot(fig_all)
 
                 # Store results in session state
                 st.session_state.eis_results = {
@@ -101,6 +180,7 @@ def run_BEIS():
             rct = st.session_state.eis_results["rct"]
             z_re = st.session_state.eis_results["z_re"]
 
+
             final_data = pd.DataFrame({
                 "Cell Name": cell_name,
                 "Mass (g)": mass,
@@ -108,8 +188,8 @@ def run_BEIS():
                 "1st Charge (mAh/g)": first_charge,
                 "1st CE (%)": first_ce,
                 "Hardware": battery_tester,
-                "Zre @ 0.1 Hz (Ω)": z_re,
-                "Rct (Ω)": rct
+                "Rct (Ω)": rct,
+                "Zre @ 0.1 Hz (Ω)": z_re
             })
 
             st.header("📊 Summary Table")
