@@ -161,7 +161,8 @@ def run_BEIS():
                         ax2.set_xlabel("Re(Z) / Ω")
                         ax2.set_ylabel("-Im(Z) / Ω")
                         #ax2.set_title("Full Raw Nyquist Plot (Step 4 Data)")
-                        ax2.set_title("Nyquist Plot")
+                        #ax2.set_title("Nyquist Plot")
+                        ax2.set_title (f"Sample {i+1}: {cell_name[i]}")
                         ax2.grid(True)
                         st.pyplot(fig2)
 
@@ -176,7 +177,7 @@ def run_BEIS():
                 set_axes(ax_all, x_min_val, x_max_val, y_min_val, y_max_val)
                 ax_all.set_xlabel("Re(Z) / Ω")
                 ax_all.set_ylabel("-Im(Z) / Ω")
-                ax_all.set_title("Raw Nyquist Plots")
+                ax_all.set_title("Nyquist Plot")
                 ax_all.grid(True)
                 ax_all.legend()
                 st.pyplot(fig_all)
