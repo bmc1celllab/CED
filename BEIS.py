@@ -70,7 +70,6 @@ def run_BEIS():
             first_discharge = []
 
             for i, csv_file in enumerate(csv_files):
-                csv_name = csv_file.name.rsplit('.', 1)[0]
                 df = pd.read_csv(csv_file, sep=";")
                 df["Q charge / C"] *= (1000 / (3600 * mass[i]))
                 df["Q discharge / C"] *= (1000 / (3600 * mass[i]))
@@ -162,7 +161,7 @@ def run_BEIS():
                         ax2.set_xlabel("Re(Z) / Ω")
                         ax2.set_ylabel("-Im(Z) / Ω")
                         #ax2.set_title("Full Raw Nyquist Plot (Step 4 Data)")
-                        ax2.set_title(f"Nyquist Plot — {csv_name}")
+                        ax2.set_title("Nyquist Plot")
                         ax2.grid(True)
                         st.pyplot(fig2)
 
