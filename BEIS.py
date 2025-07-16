@@ -12,28 +12,38 @@ def run_BEIS():
     st.title("Biologic BTExport EIS Analyzer")
     st.text ("This will fit your Biologic JSON/CSV data files. Use the EIS Fit Parameters to properly adjust the fit.")
 
-    def set_equal_aspect(ax):
-        xlim = ax.get_xlim()
-        ylim = ax.get_ylim()
-
-        # Force x_min = 0
-        x_min = 0
-        x_max = xlim[1]
-
-        # Compute range
-        x_range = x_max - x_min
-        y_range = ylim[1] - ylim[0]
-        max_range = max(x_range, y_range)
-
-        # Recalculate xmax based on max_range
-        x_max = x_min + max_range
-        y_center = (ylim[1] + ylim[0]) / 2
-        y_min = y_center - max_range / 2
-        y_max = y_center + max_range / 2
-
-        ax.set_xlim([x_min, x_max])
-        ax.set_ylim([y_min, y_max])
+    def set_axes(ax, x_min=None, x_max=None, y_min=None, y_max=None):
+        if x_min is not None and x_max is not None and y_min is not None and y_max is not None:
+            ax.set_xlim([x_min, x_max])
+            ax.set_ylim([y_min, y_max])
+        else:
+            xlim = ax.get_xlim()
+            ylim = ax.get_ylim()
+            x_min = 0
+            x_max = xlim[1]
+            x_range = x_max - x_min
+            y_range = ylim[1] - ylim[0]
+            max_range = max(x_range, y_range)
+            x_max = x_min + max_range
+            y_center = (ylim[1] + ylim[0]) / 2
+            y_min = y_center - max_range / 2
+            y_max = y_center + max_range / 2
+            ax.set_xlim([x_min, x_max])
+            ax.set_ylim([y_min, y_max])
         ax.set_aspect('equal')
+
+    # Add checkbox and inputs to sidebar
+    st.sidebar.header("📐 Axis Settings")
+    custom_axes = st.sidebar.checkbox("Manually Set Axes Limits?")
+    x_min_val, x_max_val, y_min_val, y_max_val = None, None, None, None
+
+    if custom_axes:
+        x_min_val = st.sidebar.number_input("x_min", value=0.0, key="x_min_input")
+        x_max_val = st.sidebar.number_input("x_max", value=10.0, key="x_max_input")
+        y_min_val = st.sidebar.number_input("y_min", value=-5.0, key="y_min_input")
+        y_max_val = st.sidebar.number_input("y_max", value=5.0, key="y_max_input")
+
+    rerun_plots = st.sidebar.button("🔁 Rerun EIS Plot")
 
     # Upload JSON and CSV files
     json_files = st.file_uploader("Upload JSON files", type="json", accept_multiple_files=True)
@@ -82,8 +92,9 @@ def run_BEIS():
 
             rerun_eis = st.sidebar.button("🔁 Rerun EIS Analysis")
 
+
             # Only recompute if rerun or not yet in session state
-            if "eis_results" not in st.session_state or rerun_eis:
+            if "eis_results" not in st.session_state or rerun_eis or rerun_plots:
                 rct = []
                 z_re = []
                 z_fit = {}
@@ -104,7 +115,6 @@ def run_BEIS():
                         "Re": full_eis_data["Re(Z) / Ω"].values,
                         "Im": full_eis_data["-Im(Z) / Ω"].values
                     })
-
 
                     # EIS data for fitting (filtered by frequency range)
                     eis_data = full_eis_data[(full_eis_data["Frequency / Hz"] > f_final) &
@@ -145,12 +155,13 @@ def run_BEIS():
                         # Plot 2: Full Raw Nyquist
                         fig2, ax2 = plt.subplots()
                         ax2.plot(full_re_z, full_im_z, '-o', markersize=4)
-                        set_equal_aspect(ax2)
+                        set_axes(ax2, x_min_val, x_max_val, y_min_val, y_max_val)
                         ax2.xaxis.set_major_locator(MultipleLocator(1))
                         ax2.yaxis.set_major_locator(MultipleLocator(1))
                         ax2.set_xlabel("Re(Z) / Ω")
                         ax2.set_ylabel("-Im(Z) / Ω")
-                        ax2.set_title("Full Raw Nyquist Plot (Step 4 Data)")
+                        #ax2.set_title("Full Raw Nyquist Plot (Step 4 Data)")
+                        ax2.set_title(data_json["dutType"]["name"])
                         ax2.grid(True)
                         st.pyplot(fig2)
 
@@ -162,7 +173,7 @@ def run_BEIS():
                 fig_all, ax_all = plt.subplots()
                 for entry in all_full_raw_nyquist:
                     ax_all.plot(entry["Re"], entry["Im"], '-o', markersize=4, label=entry["label"])
-                set_equal_aspect(ax_all)
+                set_axes(ax_all, x_min_val, x_max_val, y_min_val, y_max_val)
                 ax_all.set_xlabel("Re(Z) / Ω")
                 ax_all.set_ylabel("-Im(Z) / Ω")
                 ax_all.set_title("Raw Nyquist Plots")
