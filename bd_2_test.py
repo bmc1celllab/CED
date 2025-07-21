@@ -360,10 +360,10 @@ def run_data_analysis():
             title_text = f"{y_axis_1}" + (f" & {y_axis_2}" if use_y2 else "") + f" vs. {x_axis}"
             ax1.set_title(title_text)
             ax1.set_xlabel(x_axis)
-            ax1.set_ylabel(y_axis_1, color='tab:blue')
+            ax1.set_ylabel(y_axis_1)
             ax1.legend()
             if ax2:
-                ax2.set_ylabel(y_axis_2, color='tab:red')
+                ax2.set_ylabel(y_axis_2)
             # Apply axis limits if selected
             if use_axis_filter:
                 ax1.set_xlim(x_limits)
