@@ -61,7 +61,9 @@ def run_BEIS():
             for json_file in json_files:
                 data_json = json.load(json_file)
                 mass.append(float(data_json["dutType"]["nominal capacity"][:-4]) / 250)
-                cell_name.append(data_json["dutType"]["name"])
+                cell_name.append(
+                    str(data_json.get("dutType", {}).get("name") or data_json.get("dutType", {}).get("electrode material", ""))
+                )
                 battery_tester.append(data_json["dut_run"]["hardwareType"])
 
             # Process CSV files and extract cycle data
@@ -200,8 +202,8 @@ def run_BEIS():
                 "1st Charge (mAh/g)": first_charge,
                 "1st CE (%)": first_ce,
                 "Hardware": battery_tester,
-                "Zre @ 0.1 Hz (Ω)": z_re,
-                "Rct (Ω)": rct
+                "Rct (Ω)": rct,
+                "Zre @ 0.1 Hz (Ω)": z_re
             })
 
             st.header("📊 Summary Table")
