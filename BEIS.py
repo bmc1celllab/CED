@@ -87,7 +87,7 @@ def run_BEIS():
 
             # Sidebar for frequency inputs
             st.sidebar.header("⚙️ EIS Frequency Settings")
-            default_f_ini = 50
+            default_f_ini = 50.0
             default_f_final = 2.0
             f_ini = st.sidebar.number_input("Initial frequency (Hz)", min_value=0.1, value=default_f_ini, step=1.0)
             f_final = st.sidebar.number_input("Final frequency (Hz)", min_value=0.01, value=default_f_final, step=0.5)
@@ -203,7 +203,7 @@ def run_BEIS():
                 "1st Charge (mAh/g)": first_charge,
                 "1st CE (%)": first_ce,
                 "Hardware": battery_tester,
-                "Zre @ 0.1 Hz (Ω)": z_re
+                "Zre @ 0.1 Hz (Ω)": z_re,
                 "Rct (Ω)": rct
             })
 
