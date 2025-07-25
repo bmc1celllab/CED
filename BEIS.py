@@ -191,8 +191,9 @@ def run_BEIS():
                 }
 
             # Summary display
-            rct = st.session_state.eis_results["rct"]
             z_re = st.session_state.eis_results["z_re"]
+            rct = st.session_state.eis_results["rct"]
+            
 
 
             final_data = pd.DataFrame({
