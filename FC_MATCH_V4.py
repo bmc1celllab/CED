@@ -140,7 +140,6 @@ def run_fc_match():
             # Insert anode weight, name and capacity into columns 3, 4 and 5 (index 3 and 4)
             fc_directory_format.iloc[:, 3] = unused_anodes['Anode_Weight']
             fc_directory_format.iloc[:, 4] = unused_anodes['Anode_Name']
-            fc_directory_format.iloc[:, 5] = unused_anodes['Anode_Capacity']
 
             # Now create headers
             headers = [''] * total_columns
@@ -168,4 +167,5 @@ def run_fc_match():
 
         except Exception as e:
             st.error(f"An error occurred: {e}")
+
 
