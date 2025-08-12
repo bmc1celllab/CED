@@ -13,7 +13,7 @@ def run_fc_match():
         try:
             df = pd.read_excel(uploaded_file)
 
-            anodes = df.iloc[:, [2,4, 5]].copy()
+            anodes = df.iloc[:, [3,4, 5]].copy()
             cathodes = df.iloc[:, [7, 8]].copy()
             anodes.columns = ['Anode_Weight','Anode_Name', 'Anode_Capacity']
             cathodes.columns = ['Cathode_Name', 'Cathode_Capacity']
@@ -137,8 +137,8 @@ def run_fc_match():
             # Create dataframe with empty strings
             fc_directory_format = pd.DataFrame('', index=range(num_rows), columns=range(total_columns))
 
-            # Insert anode weight, name and capacity into columns 2, 4 and 5 (index 3 and 4)
-            fc_directory_format.iloc[:, 2] = unused_anodes['Anode_Weight']
+            # Insert anode weight, name and capacity into columns 3, 4 and 5 (index 3 and 4)
+            fc_directory_format.iloc[:, 3] = unused_anodes['Anode_Weight']
             fc_directory_format.iloc[:, 4] = unused_anodes['Anode_Name']
             fc_directory_format.iloc[:, 5] = unused_anodes['Anode_Capacity']
 
@@ -168,3 +168,4 @@ def run_fc_match():
 
         except Exception as e:
             st.error(f"An error occurred: {e}")
+
