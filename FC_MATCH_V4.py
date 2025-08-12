@@ -143,7 +143,7 @@ def run_fc_match():
 
             # Now create headers
             headers = [''] * total_columns
-            headers[2] = 'Anode_Weight'
+            headers[3] = 'Anode_Weight'
             headers[4] = 'Anode_Name'
             headers[5] = 'Anode_Capacity'
             headers [7] = 'Cathode_Name'
@@ -167,5 +167,6 @@ def run_fc_match():
 
         except Exception as e:
             st.error(f"An error occurred: {e}")
+
 
 
