@@ -2,7 +2,7 @@ import streamlit as st
 from bd_2_test import run_data_analysis
 from cell_files import run_object_creation
 from FC_MATCH_V4 import run_fc_match
-from BEIS import run_BEIS
+from BEIS2 import run_BEIS
 from CD_1 import run_CD_any_cycle
 from PCimp import run_PCimp
 from ici import run_ici
@@ -27,3 +27,4 @@ elif mode == "🦘 Pouch Cell EIS":
 elif mode == "💯 ICI Analysis":
 
     run_ici()
+
