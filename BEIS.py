@@ -298,7 +298,6 @@ def run_BEIS():
                 }
             )
 
-            # Round the numeric values to 2 decimal places
             final_data_baserow = final_data_baserow.round(3)
             final_data_baserow = add_test_name_group(final_data_baserow.copy())
 
