@@ -110,7 +110,7 @@ def run_BEIS():
                 mass.append(float(data_json["dutType"]["nominal capacity"][:-4]) / 250)
                 cell_name.append(
                     str(
-                        data_json.get("dutType", {}).get("name")
+                        data_json.get("testRun", {}).get("itemName")
                         or data_json.get("dutType", {}).get("electrode material", "")
                     )
                 )
@@ -333,3 +333,4 @@ def run_BEIS():
 
 if __name__ == "__main__":
     run_BEIS()
+
