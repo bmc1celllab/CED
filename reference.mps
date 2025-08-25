@@ -65,7 +65,7 @@ lim_nb              1                   1                   1                   
 lim1_type           Time                Time                Time                Time                Time                Ecell               
 lim1_comp           >                   >                   >                   >                   >                   <                   
 lim1_Q              Q limit             Q limit             Q limit             Q limit             Q limit             Q limit             
-lim1_value          360.000             10.000              10.000              10.000              10.000              2.500               
+lim1_value          360.000             12.000              10.000              12.000              10.000              2.500               
 lim1_value_unit     mn                  h                   mn                  h                   mn                  V                   
 lim1_action         Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       
 lim1_seq            1                   2                   3                   4                   5                   6                   
@@ -88,3 +88,4 @@ I Range max         Unset               Unset               Unset               
 I Range init        Unset               Unset               Unset               Unset               Unset               Unset               
 auto rest           0                   0                   0                   0                   0                   0                   
 Bandwidth           4                   4                   4                   4                   4                   4                   
+
