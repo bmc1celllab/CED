@@ -159,7 +159,7 @@ def run_BEIS():
 
                 for i in range(len(csv_files)):
                     # Store raw full Nyquist data
-                    st.subheader(f"Sample {i+1}: {cell_name[i]}")
+                    st.subheader(f"{cell_name[i]}")
                     df = df_cycle_data[i]
 
                     # Full EIS data (raw) for plotting
@@ -167,7 +167,7 @@ def run_BEIS():
                     # Store raw full Nyquist data
                     all_full_raw_nyquist.append(
                         {
-                            "label": f"Sample {i+1}: {cell_name[i]}",
+                            "label": f"{cell_name[i]}",
                             "Re": full_eis_data["Re(Z) / Ω"].values,
                             "Im": full_eis_data["-Im(Z) / Ω"].values,
                         }
@@ -333,4 +333,5 @@ def run_BEIS():
 
 if __name__ == "__main__":
     run_BEIS()
+
 
