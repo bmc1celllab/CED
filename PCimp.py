@@ -74,7 +74,7 @@ def run_PCimp ():
         if uploaded_files and step_ids:
             for file in uploaded_files:
                 try:
-                    df = pd.read_excel(file, sheet_name = 2)
+                    df = pd.read_excel(file, sheet_name = 5)
                 except Exception as e:
                     st.error(f"Error reading {file.name}: {e}")
                     continue
@@ -249,3 +249,4 @@ def run_PCimp ():
                     file_name=f"CycleID_{selected_cycle}_Combined_NyquistPlot.png",
                     mime="image/png"
                 )
+
