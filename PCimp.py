@@ -134,7 +134,7 @@ def run_PCimp ():
                         fig, ax = plt.subplots()
                         plot_nyquist(Z, fmt='o', scale=10, ax=ax)
                         plot_nyquist(circuit.predict(freq), fmt='-', scale=5, ax=ax)
-                        ax.set_title(f"{file.name} | Step {step}")
+                        ax.set_title(f"{file.name} | Cycle {cycle}")
                         ax.legend(["Data", "Fit"])
                         st.pyplot(fig)
 
@@ -248,6 +248,7 @@ def run_PCimp ():
                     file_name=f"CycleID_{selected_cycle}_Combined_NyquistPlot.png",
                     mime="image/png"
                 )
+
 
 
 
