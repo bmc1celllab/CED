@@ -123,7 +123,7 @@ def run_PCimp ():
 
                         fit_results.append({
                             "File": file.name,
-                            "Step": step,
+                            "Cycle": cycle,
                             "R1 (Ohm)": round(R1, 4),
                             "R0 (Ohm)": round(R0, 4),
                             "Q1 (CPE-T)": round(Q1, 6),
@@ -139,8 +139,7 @@ def run_PCimp ():
                         st.pyplot(fig)
 
                     except Exception as e:
-                        st.error(f"Error processing {file.name} Step {step}: {e}")
-
+                        st.error(f"Error processing {file.name} cycle {cycle}: {e}")
             # Show table of fit results
             if fit_results:
                 st.subheader("Fitted Circuit Parameters")
@@ -249,6 +248,7 @@ def run_PCimp ():
                     file_name=f"CycleID_{selected_cycle}_Combined_NyquistPlot.png",
                     mime="image/png"
                 )
+
 
 
 
