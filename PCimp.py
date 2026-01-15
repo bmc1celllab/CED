@@ -62,7 +62,7 @@ def run_PCimp ():
         # File uploader
 
         # Step ID input
-        step_ids_input = st.text_input("Enter EIS Step IDs (comma-separated)", "9")
+        cycle_ids_input = st.text_input("Enter EIS Cycle IDs (comma-separated)", "9")
         try:
             cycle_ids = [int(s.strip()) for s in cycle_ids_input.split(",")]
         except:
@@ -249,6 +249,7 @@ def run_PCimp ():
                     file_name=f"CycleID_{selected_cycle}_Combined_NyquistPlot.png",
                     mime="image/png"
                 )
+
 
 
 
