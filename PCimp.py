@@ -64,14 +64,14 @@ def run_PCimp ():
         # Step ID input
         step_ids_input = st.text_input("Enter EIS Step IDs (comma-separated)", "9")
         try:
-            step_ids = [int(s.strip()) for s in step_ids_input.split(",")]
+            cycle_ids = [int(s.strip()) for s in cycle_ids_input.split(",")]
         except:
-            step_ids = []
+            cycle_ids = []
 
         # Store fit results
         fit_results = []
 
-        if uploaded_files and step_ids:
+        if uploaded_files and cycle_ids:
             for file in uploaded_files:
                 try:
                     df = pd.read_excel(file, sheet_name = 4)
@@ -79,19 +79,19 @@ def run_PCimp ():
                     st.error(f"Error reading {file.name}: {e}")
                     continue
 
-                for step in step_ids:
+                for cycle in cycle_ids:
                     try:
-                        step_data = df[df["Step_ID"] == step]
-                        if step_data.empty:
-                            st.warning(f"No data found in {file.name} for Step {step}")
+                        cycle_data = df[df["Cycle_ID"] == cycle]
+                        if cycle_data.empty:
+                            st.warning(f"No data found in {file.name} for cycle {cycle}")
                             continue
 
-                        fit_data = step_data[
-                            (step_data["Frequency"] >= f_min) & (step_data["Frequency"] <= f_max)
+                        fit_data = cycle_data[
+                            (cycle_data["Frequency"] >= f_min) & (cycle_data["Frequency"] <= f_max)
                         ]
 
                         if fit_data.empty:
-                            st.warning(f"No frequencies in range for {file.name} Step {step}")
+                            st.warning(f"No frequencies in range for {file.name} cycle {cycle}")
                             continue
 
                         freq = fit_data["Frequency"].values
@@ -249,5 +249,6 @@ def run_PCimp ():
                     file_name=f"CycleID_{selected_cycle}_Combined_NyquistPlot.png",
                     mime="image/png"
                 )
+
 
 
