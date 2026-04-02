@@ -135,11 +135,11 @@ def run_fc_match():
             total_columns = 10  # assuming FC_DIRECTORY originally had 10 columns
 
             # Create dataframe with empty strings
-            fc_directory_format = pd.DataFrame('', index=range(num_rows), columns=range(total_columns))
+            fc_directory_format = pd.DataFrame(None, index=range(num_rows), columns=range(total_columns),dtype=object)
 
             # Insert anode weight, name and capacity into columns 3, 4 and 5 (index 3 and 4)
-            fc_directory_format.iloc[:, 3] = unused_anodes['Anode_Weight']
-            fc_directory_format.iloc[:, 4] = unused_anodes['Anode_Name']
+            fc_directory_format.iloc[:, 3] = unused_anodes['Anode_Weight'].values
+            fc_directory_format.iloc[:, 4] = unused_anodes['Anode_Name'].values
 
             # Now create headers
             headers = [''] * total_columns
