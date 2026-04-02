@@ -88,26 +88,6 @@ def run_fc_match():
                             'Anode_Name': a_name,
                             'Anode_Capacity': a_cap,
                             'NP_Ratio': round(np_ratio, 2),
-                            'Match_Type': 'CLOSE'
-                        }
-                    elif 1.035 <= np_ratio <= 1.064 and last_resort_match is None:
-                        last_resort_match = {
-                            'Cathode_Name': c_name,
-                            'Cathode_Capacity': c_cap,
-                            'Anode_Weight': a_weight,
-                            'Anode_Name': a_name,
-                            'Anode_Capacity': a_cap,
-                            'NP_Ratio': round(np_ratio, 2),
-                            'Match_Type': 'LAST RESORT'
-                        }
-                    elif 1.135 <= np_ratio <= 1.164 and last_resort_match is None:
-                        last_resort_match = {
-                            'Cathode_Name': c_name,
-                            'Cathode_Capacity': c_cap,
-                            'Anode_Weight': a_weight,
-                            'Anode_Name': a_name,
-                            'Anode_Capacity': a_cap,
-                            'NP_Ratio': round(np_ratio, 2),
                             'Match_Type': 'LAST RESORT'
                         }
 
