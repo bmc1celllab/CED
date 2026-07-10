@@ -19,7 +19,7 @@ def run_new_bio_object(df):
                 "nominal_capacity": {"value": 20.485, "display_unit": "milliampere.hour"},
                 "nominal_energy": None,
                 "nominal_voltage": {"value": 3.4, "display_unit": "volt"},
-                "min_voltage": {"value": 2, "display_unit": "volt"},
+                "min_voltage": {"value": 1, "display_unit": "volt"},
                 "max_voltage": {"value": 5, "display_unit": "volt"},
                 "max_charge_current": None,
                 "max_discharge_current": None
