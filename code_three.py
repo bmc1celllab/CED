@@ -5,7 +5,7 @@ import os
 
 def run(df, template_text=None, single_crystal=False):
     if template_text is None:
-        ref_filename = "reference_SC_10.mps" if single_crystal else "reference.mps"
+        ref_filename = "Reference_SC_10.mps" if single_crystal else "reference.mps"
         with open(ref_filename, "r", encoding="latin-1") as f:
             template_text = f.read()
     """
