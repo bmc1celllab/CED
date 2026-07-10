@@ -37,7 +37,7 @@ def run(df_raw, component_name='cathode'):
                 ]
 
                 if component_name.lower() == 'cathode':
-                    lines.append('m_fSpecificCapacity=0.25\n')
+                    lines.append('m_fSpecificCapacity=0.17\n')
                 else:
                     lines.append('m_fSpecificCapacity=0.360\n')
 
