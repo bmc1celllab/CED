@@ -2,7 +2,7 @@ import pandas as pd
 from io import BytesIO
 import zipfile
 
-def run(df_raw, component_name='cathode'):
+def run(df_raw, component_name='cathode', lfp=False):
     """
     df_raw: DataFrame where the first row is mass values, columns are sample names
     component_name: 'cathode' or 'anode'
@@ -37,7 +37,8 @@ def run(df_raw, component_name='cathode'):
                 ]
 
                 if component_name.lower() == 'cathode':
-                    lines.append('m_fSpecificCapacity=0.25\n')
+                    specific_capacity = 0.17 if lfp else 0.25
+                    lines.append(f'm_fSpecificCapacity={specific_capacity}\n')
                 else:
                     lines.append('m_fSpecificCapacity=0.360\n')
 

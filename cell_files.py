@@ -31,8 +31,12 @@ def run_object_creation():
 
     # Single crystal option only affects the OLD BIOLOGIC template
     single_crystal = False
+    lfp = False
     if file_type == "OLD BIOLOGIC":
         single_crystal = st.checkbox("Is your material single crystal?")
+        lfp = st.checkbox("Is this material LFP?")
+    elif file_type == "ARBIN":
+        lfp = st.checkbox("Is this material LFP?")
 
 
     if uploaded_file:
@@ -51,11 +55,11 @@ def run_object_creation():
 
             if st.button("Run and Generate Files"):
                 if file_type == "ARBIN":
-                    zip_data, zip_name = run_arb_object(df, component_name="cathode")
+                    zip_data, zip_name = run_arb_object(df, component_name="cathode", lfp=lfp)
                 elif file_type == "NEW BIOLOGIC":
                     zip_data, zip_name = run_new_bio_object(df)
                 elif file_type == "OLD BIOLOGIC":
-                    zip_data, zip_name = run_old_bio_object(df, single_crystal=single_crystal)
+                    zip_data, zip_name = run_old_bio_object(df, single_crystal=single_crystal, lfp=lfp)
 
                 st.success("✅ Files generated!")
                 st.balloons()

@@ -3,9 +3,14 @@ from io import BytesIO
 import zipfile
 import os
 
-def run(df, template_text=None, single_crystal=False):
+def run(df, template_text=None, single_crystal=False, lfp=False):
     if template_text is None:
-        ref_filename = "Reference_SC_10.mps" if single_crystal else "reference.mps"
+        if lfp:
+            ref_filename = "Reference_LFP.mps"
+        elif single_crystal:
+            ref_filename = "Reference_SC_10.mps"
+        else:
+            ref_filename = "reference.mps"
         with open(ref_filename, "r", encoding="latin-1") as f:
             template_text = f.read()
     """
