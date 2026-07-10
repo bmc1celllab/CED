@@ -3,9 +3,10 @@ from io import BytesIO
 import zipfile
 import os
 
-def run(df, template_text=None):
+def run(df, template_text=None, single_crystal=False):
     if template_text is None:
-        with open("reference.mps", "r", encoding="latin-1") as f:
+        ref_filename = "reference_SC_10.mps" if single_crystal else "reference.mps"
+        with open(ref_filename, "r", encoding="latin-1") as f:
             template_text = f.read()
     """
     Converts Excel data (OB sheet) into .mps files based on a text template.

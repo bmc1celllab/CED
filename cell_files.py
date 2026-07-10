@@ -29,6 +29,11 @@ def run_object_creation():
 
     file_type = st.selectbox("Select object file type:", ["ARBIN", "NEW BIOLOGIC", "OLD BIOLOGIC"])  # , "OLD BIOLOGIC"])
 
+    # Single crystal option only affects the OLD BIOLOGIC template
+    single_crystal = False
+    if file_type == "OLD BIOLOGIC":
+        single_crystal = st.checkbox("Is your material single crystal?")
+
 
     if uploaded_file:
         # Sheet mapping per logic
@@ -50,7 +55,7 @@ def run_object_creation():
                 elif file_type == "NEW BIOLOGIC":
                     zip_data, zip_name = run_new_bio_object(df)
                 elif file_type == "OLD BIOLOGIC":
-                    zip_data, zip_name = run_old_bio_object(df)
+                    zip_data, zip_name = run_old_bio_object(df, single_crystal=single_crystal)
 
                 st.success("✅ Files generated!")
                 st.balloons()
