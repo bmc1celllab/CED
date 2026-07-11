@@ -36,6 +36,7 @@ def run_object_creation():
         single_crystal = st.checkbox("Is your material single crystal?")
         lfp = st.checkbox("Is this material LFP?")
     elif file_type == "ARBIN":
+        single_crystal = st.checkbox("Is your material single crystal?")
         lfp = st.checkbox("Is this material LFP?")
 
 
@@ -55,7 +56,7 @@ def run_object_creation():
 
             if st.button("Run and Generate Files"):
                 if file_type == "ARBIN":
-                    zip_data, zip_name = run_arb_object(df, component_name="cathode", lfp=lfp)
+                    zip_data, zip_name = run_arb_object(df, component_name="cathode", lfp=lfp, single_crystal=single_crystal)
                 elif file_type == "NEW BIOLOGIC":
                     zip_data, zip_name = run_new_bio_object(df)
                 elif file_type == "OLD BIOLOGIC":
