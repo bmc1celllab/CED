@@ -8,7 +8,7 @@ def run(df, template_text=None, single_crystal=False, lfp=False):
         if lfp:
             ref_filename = "Reference_LFP.mps"
         elif single_crystal:
-            ref_filename = "Reference_SC_10.mps"
+            ref_filename = "Reference_SC.mps"
         else:
             ref_filename = "reference.mps"
         with open(ref_filename, "r", encoding="latin-1") as f:
