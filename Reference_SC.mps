@@ -10,7 +10,7 @@ Filename : C:\Users\bmc1celllab\Desktop\Biologic\Reference\Reference_SC.mps
 
 Device : BCS-810
 Ecell ctrl range : min = 0.00 V, max = 10.00 V
-Electrode material : REFERENCE
+Electrode material : NCM70-PRSCSI-013-1
 Initial state : 
 Electrolyte : 
 Comments : 
@@ -21,9 +21,9 @@ Atomic weight of intercalated ion : 0.001 g/mol
 Acquisition started at : xo = 0.000
 Number of e- transfered per intercalated ion : 1
 for DX = 1, DQ = 26.802 mA.h
-Battery capacity : 5.453 mA.h
+Battery capacity : 4.094 mA.h
 Electrode surface area : 0.001 cm²
-Characteristic mass : 0.022 g
+Characteristic mass : 0.020 g
 Volume (V) : 0.001 cm³
 Cycle Definition : Charge/Discharge alternance
 Turn to OCV between techniques
@@ -65,14 +65,14 @@ lim_nb              1                   1                   1                   
 lim1_type           Time                Time                Time                Time                Time                Ecell               
 lim1_comp           >                   >                   >                   >                   >                   <                   
 lim1_Q              Q limit             Q limit             Q limit             Q limit             Q limit             Q limit             
-lim1_value          360.000             12.000              10.000              10.000              10.000              2.500               
+lim1_value          300.000             12.000              10.000              10.000              10.000              2.500               
 lim1_value_unit     mn                  h                   mn                  h                   mn                  V                   
 lim1_action         Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       
 lim1_seq            1                   2                   3                   4                   5                   6                   
 lim2_type           Time                Time                Time                Time                Time                Time                
 lim2_comp           <                   <                   <                   <                   <                   >                   
 lim2_Q              Q limit             Q limit             Q limit             Q limit             Q limit             Q limit             
-lim2_value          0.000               0.000               0.000               0.000               0.000               12.000              
+lim2_value          0.000               0.000               0.000               0.000               0.000               22.000              
 lim2_value_unit     s                   s                   s                   s                   s                   h                   
 lim2_action         Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       Next sequence       
 lim2_seq            1                   2                   3                   4                   5                   6                   
