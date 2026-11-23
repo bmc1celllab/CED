@@ -22,9 +22,9 @@ Acquisition started at : xo = 0.000
 Number of e- transfered per intercalated ion : 1
 for DX = 1, DQ = 26.802 mA.h
 Battery capacity : 5.453 mA.h
-Electrode surface area : 0.001 cm²
+Electrode surface area : 0.001 cmÂ²
 Characteristic mass : 0.022 g
-Volume (V) : 0.001 cm³
+Volume (V) : 0.001 cmÂ³
 Cycle Definition : Charge/Discharge alternance
 Turn to OCV between techniques
 
@@ -37,7 +37,7 @@ current/potential   current             current             current             
 ctrl1_val                               0.000                                   10.000                                  5.000               
 ctrl1_val_unit                          mA                                      mV                                      mA                  
 ctrl1_val_vs                                                                                                            <None>              
-ctrl2_val                               3.600                                   10.000                                                      
+ctrl2_val                               3.800                                   10.000                                                      
 ctrl2_val_unit                          V                                       kHz                                                         
 ctrl2_val_vs                                                                                                                                
 ctrl3_val                               0.050                                   0.100                                                       
@@ -88,3 +88,4 @@ I Range max         Unset               Unset               Unset               
 I Range init        Unset               Unset               Unset               Unset               Unset               Unset               
 auto rest           0                   0                   0                   0                   0                   0                   
 Bandwidth           4                   4                   4                   4                   4                   4                   
+
