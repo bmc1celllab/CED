@@ -43,7 +43,7 @@ ctrl2_val_vs
 ctrl3_val                               0.050                                   0.100                                                       
 ctrl3_val_unit                          mA                                      Hz                                                          
 ctrl3_val_vs                                                                                                                                
-N                   1.00                10.00               10.00               10.00               10.00               10.00               
+N                   1.00                10.00               10.00               10.00               10.00               5.00               
 charge/discharge    Charge              Charge              Charge              Charge              Charge              Discharge           
 charge/discharge_1  Charge              Charge              Charge              Charge              Charge              Charge              
 Apply I/C_1         I                   I                   I                   I                   I                   I                   
@@ -88,5 +88,6 @@ I Range max         Unset               Unset               Unset               
 I Range init        Unset               Unset               Unset               Unset               Unset               Unset               
 auto rest           0                   0                   0                   0                   0                   0                   
 Bandwidth           4                   4                   4                   4                   4                   4                   
+
 
 
